@@ -64,7 +64,7 @@ Employees.Where(x => x.Position.Description == "Instructor" && x.ReleaseDate == 
 			   x.ClassOfferings.Count > 8 ? "Med" : "Low"	
 })
 .Dump();
-
+Employees.Dump();
 //Offerings.Dump();
 
 //Employees.Where(x => x.FirstName == "Alexandrea").Dump();
@@ -72,3 +72,38 @@ Employees.Where(x => x.Position.Description == "Instructor" && x.ReleaseDate == 
 //Employees.Where(x => x.Position.Description == "Instructor").Dump();
 
 //Employees.Where(x => x.ClassOfferings.Count >= 1).Dump();
+
+//Question 5
+Clubs
+	.Select(x => new 
+	{ 
+		Supervisor = x.Employee != null ? x.Employee.FirstName + " " + x.Employee.LastName : "Unknown",
+		Club = x.ClubName,
+		MemberCount = x.ClubMembers.Count,
+		Activities = x.ClubActivities.Count == 0 ? "None Schedule" : x.ClubActivities.Count.ToString()
+	})
+	.OrderByDescending(x => x.MemberCount)
+	.Dump();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
