@@ -39,18 +39,16 @@ ProgramCourses.OrderBy(x => x.Program.ProgramName)
 .Dump();
 
 //Question 3
-Students.Where(x => x.Countries.CountryName != "Canada").Dump();
-//wip
-
-
-
-//Students.Where(x => x.FirstName == "Kemberly").Dump();
-//Students.Where(x => x.FirstName == "Sadie").Dump();
-
-//Students.Dump();
-
-//StudentPayments.Dump();
-
+Students.Where(x => x.StudentPayments.Count == 0 && x.Countries.CountryName != "Canada")
+.OrderBy(x => x.LastName)
+.Select(x => new 
+{
+	StudentNumber = x.StudentNumber,
+	CountryName = x.Countries.CountryName,
+	FullName = x.FirstName + " " + x.LastName,
+	ClubMembershipCount = x.ClubMembers.Count == 0 ? "None" : x.ClubMembers.Count.ToString()
+})
+.Dump();
 
 //Question 4
 Employees.Where(x => x.Position.Description == "Instructor" && x.ReleaseDate == null && x.ClassOfferings.Count >= 1)
@@ -65,13 +63,6 @@ Employees.Where(x => x.Position.Description == "Instructor" && x.ReleaseDate == 
 })
 .Dump();
 Employees.Dump();
-//Offerings.Dump();
-
-//Employees.Where(x => x.FirstName == "Alexandrea").Dump();
-
-//Employees.Where(x => x.Position.Description == "Instructor").Dump();
-
-//Employees.Where(x => x.ClassOfferings.Count >= 1).Dump();
 
 //Question 5
 Clubs
