@@ -32,10 +32,43 @@ ProgramCourses.OrderBy(x => x.Program.ProgramName)
 	School = x.Program.SchoolCode == "SAMIT" ? "School of Advance Media and IT" :
 			 x.Program.SchoolCode == "SEET" ? "School of Electrical Engineering Technology" : "Unknown",
 	Program = x.Program.ProgramName,
-	RequiredCourseCount = x.Required == true ? 1 : 0,
 	
+//wip	
 	
 })
 .Dump();
 
 //Question 3
+Students.Where(x => x.Countries.CountryName != "Canada").Dump();
+//wip
+
+
+
+//Students.Where(x => x.FirstName == "Kemberly").Dump();
+//Students.Where(x => x.FirstName == "Sadie").Dump();
+
+//Students.Dump();
+
+//StudentPayments.Dump();
+
+
+//Question 4
+Employees.Where(x => x.Position.Description == "Instructor" && x.ReleaseDate == null && x.ClassOfferings.Count >= 1)
+.OrderByDescending(x => x.ClassOfferings.Count)
+.ThenBy(x => x.LastName)
+.Select(x => new 
+{
+	ProgramName = x.Program.ProgramName,
+	FullName = x.FirstName + " " + x.LastName,
+	WorkLoad = x.ClassOfferings.Count > 24 ? "High" :
+			   x.ClassOfferings.Count > 8 ? "Med" : "Low"	
+})
+.Dump();
+
+//Offerings.Dump();
+
+//Employees.Where(x => x.FirstName == "Alexandrea").Dump();
+
+//Employees.Where(x => x.Position.Description == "Instructor").Dump();
+
+//Employees.Where(x => x.ClassOfferings.Count >= 1).Dump();
