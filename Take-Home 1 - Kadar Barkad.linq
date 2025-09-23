@@ -14,6 +14,7 @@
 </Query>
 
 //Question 1
+
 ClubActivities.Where(x => x.StartDate >= new DateTime(2025, 1, 1) && x.CampusVenue.Location != "Scheduled Room" && x.Name != "BTech Club Meeting")
 .Select(x => new 
 { 
@@ -26,19 +27,22 @@ ClubActivities.Where(x => x.StartDate >= new DateTime(2025, 1, 1) && x.CampusVen
 .Dump();
 
 //Question 2
-ProgramCourses.OrderBy(x => x.Program.ProgramName)
+
+Programs
 .Select(x => new 
-{ 
-	School = x.Program.SchoolCode == "SAMIT" ? "School of Advance Media and IT" :
-			 x.Program.SchoolCode == "SEET" ? "School of Electrical Engineering Technology" : "Unknown",
-	Program = x.Program.ProgramName,
-	
-//wip	
-	
+{
+	School = x.SchoolCode == "SAMIT" ? "School of Advance Media and IT" :
+			 x.SchoolCode == "SEET" ? "School of Electrical Engineering Technology" : "Unknown",
+	Program = x.ProgramName,
+	RequiredCourseCount = x.ProgramCourses.Count(x => x.Required),
+	OptionalCourseCount = x.ProgramCourses.Count(x => x.Required == false)
 })
+.Where(x => x.RequiredCourseCount >= 22)
+.OrderBy(x => x.Program)
 .Dump();
 
 //Question 3
+
 Students.Where(x => x.StudentPayments.Count == 0 && x.Countries.CountryName != "Canada")
 .OrderBy(x => x.LastName)
 .Select(x => new 
@@ -65,6 +69,7 @@ Employees.Where(x => x.Position.Description == "Instructor" && x.ReleaseDate == 
 Employees.Dump();
 
 //Question 5
+
 Clubs
 	.Select(x => new 
 	{ 
